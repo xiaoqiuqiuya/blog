@@ -19,6 +19,8 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addViewController("diary.html").setViewName("diary");
         registry.addViewController("link.html").setViewName("link");
         registry.addViewController("message.html").setViewName("message");
+
+
     }
 
     //配置拦截器
