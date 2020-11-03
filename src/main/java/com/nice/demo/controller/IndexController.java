@@ -8,6 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class IndexController {
+
+//    @GetMapping("/article")
+//    public String getArticle(){
+//        return "article";
+//    }
+
+    @GetMapping("/")
+    public String getIndex(){
+        return "index";
+    }
+
     @GetMapping("/show")
     @ResponseBody
     public String getIP(HttpServletRequest request){

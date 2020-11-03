@@ -239,6 +239,15 @@ body, html {
     min-height: 100vh
 }
 
+/*头部提示*/
+.doc-banner{
+
+    padding-right: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-top: 0px;
+}
+
 .lo {
     width: 250px;
     height: 60px;
