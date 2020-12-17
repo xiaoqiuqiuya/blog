@@ -19,6 +19,11 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping("/login2")
+    public String login2(){
+        return "login2";
+    }
+
     @GetMapping("/show")
     @ResponseBody
     public String getIP(HttpServletRequest request){

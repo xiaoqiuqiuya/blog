@@ -13,7 +13,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
     // 通过这个方法可以直接在地址栏访问或者重定向到templates下的模板页面
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/article.html").setViewName("article");
+        registry.addViewController("article.html").setViewName("article");
         registry.addViewController("read.html").setViewName("read");
         registry.addViewController("index.html").setViewName("index");
         registry.addViewController("diary.html").setViewName("diary");
@@ -21,6 +21,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addViewController("message.html").setViewName("message");
         registry.addViewController("publish.html").setViewName("publish");
         registry.addViewController("login.html").setViewName("login");
+//        registry.addViewController("login2.html").setViewName("login2");
     }
     //配置拦截器
     @Override

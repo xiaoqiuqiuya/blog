@@ -1,0 +1,17 @@
+server:
+#  端口
+  port: 8886
+
+#  spring配置
+spring:
+  # 数据库配置
+  datasource:
+    username: root
+    password: 123
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+# 静态资源路径
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/static/
