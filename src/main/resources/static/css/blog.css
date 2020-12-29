@@ -779,6 +779,19 @@
     margin-top: 5px;
     display: inline-block;
 }
+.publish-article-tips{
+    display: none;
+    width: 100%;
+}
+.publish-article-tips-repost{
+    margin: 9px 0;
+    display: none;
+}
+.publish-article-tips-translated{
+    margin: 9px 0;
+    display: none;
+}
+
 
 
 @-webkit-keyframes bounceInDown {

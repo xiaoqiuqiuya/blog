@@ -75,16 +75,7 @@
         <div class="publish-warm">
             <span><i class="layui-icon">&#xe702;</i>请勿发布涉及政治、广告、营销、违反国家法律法规等内容</span>
         </div>
-        <div class="layui-form-item"><label class="layui-form-label">文章类型</label>
-            <div class="layui-input-block">
-                <select name="type" lay-verify="required">
-                    <option value=""></option>
-                    <option value="0">原创</option>
-                    <option value="1">转载</option>
-                    <option value="2">翻译</option>
-                </select>
-            </div>
-        </div>
+
         <div class="layui-form-item ">
             <label class="layui-form-label">文章标签</label>
             <div class="publish-articleTag">
@@ -98,7 +89,7 @@
             </div>
             <div class="publish-article-TagBox" id="TagBox">
                 <div>
-                    <span>还可以添加<span id="tag-num"></span>个标签</span>
+                    <span>还可以添加<span id="tag-num">5</span>个标签</span>
                 </div>
                 <div>
                     <!--标签分类-->
@@ -107,7 +98,7 @@
                              th:id="'tag-'+${tag.id}"
                              th:class="tabBox-list"
                              th:text="${tag.name}"
-                             ></div>
+                        ></div>
                     </div>
                     <!--标签列表-->
                     <div class="tabBox-listBox">
@@ -119,25 +110,48 @@
                             </span>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">复选框</label>
-            <div class="layui-input-block">
-                <input type="checkbox" name="like[write]" title="写作">
-                <input type="checkbox" name="like[read]" title="阅读" checked>
-                <input type="checkbox" name="like[dai]" title="发呆">
+            <label class="layui-form-label">文章类型</label>
+            <div class="layui-input-inline">
+                <select name="article-type"  id="article-type" lay-filter="article-type">
+                    <option value=""></option>
+                    <option value="original">原创</option>
+                    <option value="repost">转载</option>
+                    <option value="translated">翻译</option>
+                </select>
             </div>
+            <div class="layui-form-mid layui-word-aux">若非原创文章，请选择转载或翻译</div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">公开</label>
+        <div class="publish-article-tips">
+            <label class="layui-form-label">原文地址</label>
             <div class="layui-input-block">
-                <input type="checkbox" name="switch" lay-skin="switch">
+                <input type="text" name="originalLink" required lay-verify="required" placeholder="请输入原文链接"
+                       autocomplete="off" class="layui-input">
+
+                <!--转载显示-->
+                <div class="publish-article-tips-repost">
+                    <input type="checkbox" name="permission" title="原文允许转载或者本次转载已经获得原文作者授权" lay-skin="primary"
+                           lay-verify="require">
+                    <div class="layui-form-mid layui-word-aux" style="color: #ca0c16 !important;">注意：转载请确认原文允许转载，或者您已经获得原文作者授权。转载文章不能设置为VIP可见。</div>
+                </div>
+                <!--翻译显示-->
+                <div class="publish-article-tips-translated">
+                    <input type="checkbox" name="permission" title="原文允许翻译或者本次翻译已经获得原文作者授权" lay-skin="primary"
+                           lay-verify="require">
+                    <div class="layui-form-mid layui-word-aux" style="color: #ca0c16 !important;">
+                        注意：翻译请确认原文允许翻译，或者您已经获得原文作者授权翻译。翻译文章请尽量填写原文链接。
+                    </div>
+                </div>
+
+
             </div>
+
+
         </div>
+
         <div class="layui-form-item">
             <label class="layui-form-label">发布形式</label>
             <div class="layui-input-block">

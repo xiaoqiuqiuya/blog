@@ -2,7 +2,7 @@ layui.use(['layer', 'jquery', 'form', 'tree'], function () {
 
         var layer = layui.layer;
         var $ = layui.jquery;
-        var tree = layui.tree;
+        var form = layui.form;
         $('#btn-publish').on('click', function () {
             layer.open({
                 type: 1
@@ -11,10 +11,35 @@ layui.use(['layer', 'jquery', 'form', 'tree'], function () {
                 , area: '40%'
             });
         })
+        // 文章分类选择
+        var lastSelceted = null;
+        form.on("select(article-type)", function (data) {
+            console.log("选中" + data.value);
+            lastSelceted = setArticleType(data.value, lastSelceted);
+        })
     }
 )
 ;
 
+// 修改文章类型
+function setArticleType(type, lastSelected) {
+    // 隐藏上次选择的
+    if (lastSelected != null) {
+        document.getElementsByClassName("publish-article-tips-" + lastSelected)[0].style.display = "none";
+    }
+    if (type == "original" || type == "") {
+        document.getElementsByClassName("publish-article-tips")[0].style.display = "none";
+    }
+    if (type.length > 0 && type != "original") {
+        document.getElementsByClassName("publish-article-tips")[0].style.display = "block";
+        document.getElementsByClassName("publish-article-tips-" + type)[0].style.display = "block";
+        lastSelected = type;
+    }
+    return lastSelected;
+}
+
+
+//显示标签选择
 function showTags() {
     var temp = document.getElementById("TagBox");
     if (temp.style.display == "none" || temp.style.display == "") {
@@ -33,10 +58,6 @@ $(document).ready(function () {
     list[0].classList.add("tabBox-list-isActive");
     // tag列表
     var itemList = $(".tabBox-list-item");
-    // 剩余可选标签数，最大可选5个
-    var tagNum = $("#tag-num");
-    tagNum.innerText = 5;
-
     // 保存上次点击的id，第一次点击默认为0
     var clickIndex = 0;
     // 遍历标签分类
@@ -67,13 +88,13 @@ $(document).ready(function () {
                         if (selectList.length < 4) {
                             // 把当前选中的id添加到数组中
                             selectList.push(this.id);
-                            tagNum.innerText = tagNum.innerText - 1;
+                            updateTagNum("-");
                             this.style.color = "#ccccd8";
                             addTag(this.innerText, this.id);
                         } else if (selectList.length == 4) {
                             // 把当前选中的id添加到数组中
                             selectList.push(this.id);
-                            tagNum.innerText = tagNum.innerText - 1;
+                            updateTagNum("-");
                             this.style.color = "#ccccd8";
                             addTag(this.innerText, this.id);
                             // 所有span颜色变为灰色
@@ -89,7 +110,6 @@ $(document).ready(function () {
             }
         }
     }
-
 })
 
 // 把标签添加到已选标签区域
@@ -107,7 +127,6 @@ function addTag(tagName, tagID) {
     targetSpan.appendChild(insertSpan);
 }
 
-
 // 标签数量超出允许范围
 function tagOver() {
     // 弹出提示
@@ -119,6 +138,8 @@ function tagOver() {
 
 // 删除标签
 function tagRemove() {
+    // 更新剩余可选数量
+    updateTagNum("+");
     // 获取需要去除的数组元素
     var removeId = this.parentElement.getAttribute("data");
     // 去除数组元素
@@ -134,4 +155,17 @@ function tagRemove() {
     }
     // 去除span
     this.parentElement.remove();
+}
+
+// 可选数量：操作 +/-
+function updateTagNum(option) {
+    var tagNum = document.getElementById("tag-num");
+    var temp = Number(tagNum.innerText);
+    if (option == "+") {
+        temp +=1;
+    }
+    if (option == "-") {
+       temp-=1;
+    }
+    tagNum.innerText = temp;
 }
