@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nice.demo.mapper.TagSortMapper">
+
+    <resultMap id="tagList" type="com.nice.demo.dao.TagDao">
+        <id column="id"  property="id"/>
+        <result column="name"  property="name"/>
+        <collection property="tagList" ofType="Tag">
+            <id column="tag_id"  property="id"/>
+            <result column="tag_name"  property="name"/>
+            <result column="sort"  property="sort" />
+        </collection>
+    </resultMap>
+
+    <select id="getTagList" resultMap="tagList">
+        SELECT b.*,a.id tag_id,a.name tag_name,a.`sort`
+        FROM tag a,tag_sort b
+        WHERE a.sort =b.id
+    </select>
+
+</mapper>
