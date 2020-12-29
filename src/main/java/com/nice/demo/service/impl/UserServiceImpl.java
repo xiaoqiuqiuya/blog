@@ -1,9 +1,9 @@
 package com.nice.demo.service.impl;
 
-import com.nice.demo.pojo.User;
-import com.nice.demo.mapper.UserMapper;
-import com.nice.demo.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.nice.demo.mapper.UserMapper;
+import com.nice.demo.pojo.User;
+import com.nice.demo.service.UserService;
 import org.springframework.stereotype.Service;
 
 /**

@@ -654,21 +654,20 @@
     padding: 1%;
     background: rgb(255, 255, 255);
 }
-.publish-body span{
+
+.publish-body span {
     font-weight: bold;
 }
-.publish-body input{
+
+.publish-body input {
     margin-left: 1%;
     display: inline-block;
     width: 70%;
 }
 
 
-
-
-
-.publish-top h1{
-display: inline-block;
+.publish-top h1 {
+    display: inline-block;
     font-weight: bold;
 }
 
@@ -677,18 +676,110 @@ display: inline-block;
     font-weight: bold;
 }
 
-.publish-center{
+.publish-center {
 
 }
 
-.publish-warm{
+.publish-warm {
     background: #fff6e5;
     color: #e7564a;
     text-align: center;
-    padding: 5px;
     margin: 5px;
     border-radius: 5px;
 }
+
+#publish-temp {
+    padding: 2%;
+}
+
+/*文章标签*/
+.publish-articleTag{
+    width: 79%;
+    float: right;
+    display: inline-block
+}
+.publish-article-tag {
+    background: rgb(244, 248, 252);
+    border: 1px solid #cce0f3;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 2px;
+    margin-right: 3px;
+    display: inline-block;
+}
+.publish-article-tag i{
+    margin-left: 2px;
+}
+.publish-article-tag i:hover{
+    color: #ffffff;
+    background: #267dcc;
+    border-radius: 9px;
+    cursor: pointer;
+}
+
+.publish-article-addTagBtn {
+    background: rgb(244, 248, 252);
+    border: 1px solid #cce0f3;
+    border-radius: 4px;
+
+    padding: 2px;
+    margin: 4px;
+}
+.publish-article-addTagBtn i{
+    margin-left: 2px;
+}
+.publish-article-TagBox{
+    display: none;
+    float: right;
+    background: #ffffff;
+    border: 1px solid #e3e3e3 ;
+    border-radius: 4px;
+    padding: 10px 15px;
+    width: 70%;
+    height: 60%;
+    margin-right: 3%;
+}
+.tabBox{
+    padding: 1%;
+}
+.tabBox-list{
+    display: inline-block;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+.tabBox-list-isActive{
+    border-radius: 2px;
+    background: #fcecea;
+    color: #e33e33;
+}
+
+.tabBox-listBox{
+/*padding-top:6px ;*/
+}
+
+.tabBox-list-item{
+    display: none;
+    word-break: break-all;
+}
+.tabBox-list-item span{
+    padding: 1px 4px;
+    height: 24px;
+    /*正常色*/
+    background: #f7f7fc;
+    /*选中色*/
+    /*background: #ccccd8;*/
+    border-radius: 2px;
+    border: 1px solid #e8e8ee;
+    font-weight: 400;
+    color: #4d4d4d;
+    line-height: 24px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-top: 5px;
+    display: inline-block;
+}
+
 
 @-webkit-keyframes bounceInDown {
     0%, 60%, 75%, 90%, to {

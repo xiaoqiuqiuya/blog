@@ -15,3 +15,6 @@ spring:
     static-path-pattern: /static/**
   resources:
     static-locations: classpath:/static/
+mybatis-plus:
+  mapper-locations: classpath:com/nice/demo/mapper/xml/*.xml
+  type-aliases-package: com.nice.demo.pojo

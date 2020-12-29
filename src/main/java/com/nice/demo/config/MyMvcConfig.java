@@ -28,7 +28,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
                 //需要拦截的请求  --> /** 拦截所有的请求
-                .addPathPatterns("/publish.html")
+                .addPathPatterns("/publish2.html")
                 //不拦截的请求
                 .excludePathPatterns("/", "/login", "index.html", "/css/**", "/js/**");
     }

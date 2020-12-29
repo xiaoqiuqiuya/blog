@@ -20,7 +20,6 @@
 </head>
 
 
-
 <body>
 <div class="header">
 
@@ -29,25 +28,26 @@
 <!--头部引用-->
 
 <div class="doc-container" id="doc-container">
-                <div class="publish-body">
-                    <div class="publish-top">
-                        <i class="layui-icon">&#xe609;</i>
-                        <h1>请输入文章标题</h1>
-                        <input placeholder="请输入标题" autocomplete="off" class="layui-input">
-                        <button type="button" class="layui-btn layui-btn-warm">
-                            <i class="layui-icon" style="font-size: 20px;">&#xe681;</i>
-                            保存为草稿</button>
-                        <button id="btn-publish" type="button"  class="layui-btn">发布</button>
-                        <hr/>
-                    </div>
+    <div class="publish-body">
+        <div class="publish-top">
+            <i class="layui-icon">&#xe609;</i>
+            <h1>请输入文章标题</h1>
+            <input placeholder="请输入标题" autocomplete="off" class="layui-input">
+            <button type="button" class="layui-btn layui-btn-warm">
+                <i class="layui-icon" style="font-size: 20px;">&#xe681;</i>
+                保存为草稿
+            </button>
+            <button id="btn-publish" type="button" class="layui-btn">发布</button>
+            <hr/>
+        </div>
 
-                    <div class="publish-center">
-                        <span>文章详情</span>
-                        <div id="test-editor">
-                            <textarea style="display: none"></textarea>
-                        </div>
-                    </div>
-                </div>
+        <div class="publish-center">
+            <span>文章详情</span>
+            <div id="test-editor">
+                <textarea style="display: none"></textarea>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!--	底部引用-->
@@ -69,55 +69,126 @@
         NProgress.done();
     };
 </script>
+<!--发布提交信息表单-->
+<div style="display: none" id="publish-temp">
+    <form class="layui-form">
+        <div class="publish-warm">
+            <span><i class="layui-icon">&#xe702;</i>请勿发布涉及政治、广告、营销、违反国家法律法规等内容</span>
+        </div>
+        <div class="layui-form-item"><label class="layui-form-label">文章类型</label>
+            <div class="layui-input-block">
+                <select name="type" lay-verify="required">
+                    <option value=""></option>
+                    <option value="0">原创</option>
+                    <option value="1">转载</option>
+                    <option value="2">翻译</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item ">
+            <label class="layui-form-label">文章标签</label>
+            <div class="publish-articleTag">
+                <span class="publish-article-tag-list" >
+                    <span class="publish-article-tag">MySql<i class="layui-icon layui-icon-close"></i></span>
+                    <span class="publish-article-tag">Redis<i class="layui-icon layui-icon-close"></i></span>
+                </span>
+                <button type="button" class="publish-article-addTagBtn" onclick="showTags()">
+                    <i class="layui-icon layui-icon-add-1"></i>
+                    添加文章标签
+                </button>
+            </div>
+            <div class="publish-article-TagBox" id="TagBox">
+                <div>
+                    <span>还可以添加<span id="tag-num"></span>个标签</span>
+                </div>
+                <div>
+                    <div class="tabBox" id="tabBox-list">
+                        <div name="0" id="tab-0" class="tabBox-list">推荐</div>
+                        <div name="1" id="tab-1" class="tabBox-list">数据库</div>
+                        <div name="2" id="tab-2" class="tabBox-list">工具</div>
+                        <div name="3" id="tab-3" class="tabBox-list">后端</div>
+                        <div name="4" id="tab-4" class="tabBox-list">移动端</div>
+                        <div name="5" id="tab-5" class="tabBox-list">数学</div>
+                        <div name="6" id="tab-6" class="tabBox-list">前端</div>
+                        <div name="7" id="tab-7" class="tabBox-list">运维</div>
+                        <div name="8" id="tab-8" class="tabBox-list">大数据</div>
+                        <div name="9" id="tab-9" class="tabBox-list">其他</div>
+                        <div name="10" id="tab-10" class="tabBox-list">人工智能</div>
+                    </div>
+                    <div class="tabBox-listBox">
+                        <div id="tab-item-0" class="tabBox-list-item">
+                            <span>markdown</span>
+                            <span>java</span>
+                            <span>python</span>
+                            <span>大数据</span>
+                            <span>html</span>
+                        </div>
+                        <div id="tab-item-1" class="tabBox-list-item">
+                            <span>数据</span>
+                        </div>
+                        <div id="tab-item-2" class="tabBox-list-item">
+                            <span>工具</span>
+                        </div>
+                        <div id="tab-item-3" class="tabBox-list-item">
+                            <span>后端</span>
+                        </div>
+                        <div id="tab-item-4" class="tabBox-list-item">
+                            <span>移动</span>
+                        </div>
+                        <div id="tab-item-5" class="tabBox-list-item">
+                            <span>数学</span>
+                        </div>
+                        <div id="tab-item-6" class="tabBox-list-item">
+                            <span>前端</span>
+                        </div>
+                        <div id="tab-item-7" class="tabBox-list-item">
+                            <span>运维</span>
+                        </div>
+                        <div id="tab-item-8" class="tabBox-list-item">
+                            <span>大数</span>
+                        </div>
+                        <div id="tab-item-9" class="tabBox-list-item">
+                            <span>其他</span>
+                        </div>
+                        <div id="tab-item-10" class="tabBox-list-item">
+                            <span>人工智能</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">复选框</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="like[write]" title="写作">
+                <input type="checkbox" name="like[read]" title="阅读" checked>
+                <input type="checkbox" name="like[dai]" title="发呆">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">公开</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="switch" lay-skin="switch">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">发布形式</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sex" value="private" title="公开">
+                <input type="radio" name="sex" value="私密" title="私密">
+                <input type="radio" name="sex" value="粉丝可见" title="粉丝可见">
+                <input type="radio" name="sex" value="VIP可见" title="VIP可见" checked>
+            </div>
+        </div>
+        <div id="test1"></div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
 </body>
-
-<form class="layui-form" id="publish-temp">
-    <div class="publish-warm">
-        <span><i class="layui-icon">&#xe702;</i>请勿发布涉及政治、广告、营销、违反国家法律法规等内容</span>
-    </div>
-    <div class="layui-form-item"><label class="layui-form-label">文章类型</label>
-        <div class="layui-input-block">
-            <select name="city" lay-verify="required">
-                <option value=""></option>
-                <option value="0">原创</option>
-                <option value="1">转载</option>
-                <option value="2">翻译</option>
-            </select>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">复选框</label>
-        <div class="layui-input-block">
-            <input type="checkbox" name="like[write]" title="写作">
-            <input type="checkbox" name="like[read]" title="阅读" checked>
-            <input type="checkbox" name="like[dai]" title="发呆">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">开关</label>
-        <div class="layui-input-block">
-            <input type="checkbox" name="switch" lay-skin="switch">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">单选框</label>
-        <div class="layui-input-block">
-            <input type="radio" name="sex" value="男" title="男">
-            <input type="radio" name="sex" value="女" title="女" checked>
-        </div>
-    </div>
-    <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">文本域</label>
-        <div class="layui-input-block">
-            <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-        </div>
-    </div>
-</form>
-
 </html>

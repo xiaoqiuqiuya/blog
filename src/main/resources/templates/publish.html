@@ -15,8 +15,11 @@
     <link rel="stylesheet" href="../static/css/gloable.css"/>
     <link rel="stylesheet" href="../static/css/nprogress.css"/>
     <link rel="stylesheet" href="../static/css/blog.css"/>
+
     <link rel="stylesheet" href="../static/js/plugins/css/editormd.min.css">
 </head>
+
+
 <body>
 <div class="header">
 
@@ -32,8 +35,9 @@
             <input placeholder="请输入标题" autocomplete="off" class="layui-input">
             <button type="button" class="layui-btn layui-btn-warm">
                 <i class="layui-icon" style="font-size: 20px;">&#xe681;</i>
-                保存为草稿</button>
-            <button type="button" onclick="publish()" class="layui-btn">发布</button>
+                保存为草稿
+            </button>
+            <button id="btn-publish" type="button" class="layui-btn">发布</button>
             <hr/>
         </div>
 
@@ -54,16 +58,104 @@
 <script src="../static/js/plugins/editormd.min.js"></script>
 <script src="../static/js/md.js"></script>
 
-
 <script src="../static/layui/layui.js"></script>
+<script src="../static/js/publish.js"></script>
+
 <script src="../static/js/yss/gloable.js"></script>
 <script src="../static/js/plugins/nprogress.js"></script>
 <script>NProgress.start();</script>
-<script src="../static/js/yss/article.js"></script>
 <script>
     window.onload = function () {
         NProgress.done();
     };
 </script>
+<!--发布提交信息表单-->
+<div style="display: none" id="publish-temp">
+    <form class="layui-form">
+        <div class="publish-warm">
+            <span><i class="layui-icon">&#xe702;</i>请勿发布涉及政治、广告、营销、违反国家法律法规等内容</span>
+        </div>
+        <div class="layui-form-item"><label class="layui-form-label">文章类型</label>
+            <div class="layui-input-block">
+                <select name="type" lay-verify="required">
+                    <option value=""></option>
+                    <option value="0">原创</option>
+                    <option value="1">转载</option>
+                    <option value="2">翻译</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item ">
+            <label class="layui-form-label">文章标签</label>
+            <div class="publish-articleTag">
+                <!--已选标签-->
+                <span class="publish-article-tag-list">
+                </span>
+                <button type="button" class="publish-article-addTagBtn" onclick="showTags()">
+                    <i class="layui-icon layui-icon-add-1"></i>
+                    添加文章标签
+                </button>
+            </div>
+            <div class="publish-article-TagBox" id="TagBox">
+                <div>
+                    <span>还可以添加<span id="tag-num"></span>个标签</span>
+                </div>
+                <div>
+                    <!--标签分类-->
+                    <div id="tabBox-list" class="tabBox">
+                        <div th:each="tag:${tag}"
+                             th:id="'tag-'+${tag.id}"
+                             th:class="tabBox-list"
+                             th:text="${tag.name}"
+                             ></div>
+                    </div>
+                    <!--标签列表-->
+                    <div class="tabBox-listBox">
+                        <div th:each="tag:${tag}"
+                             th:id="${tag.id-1}" class="tabBox-list-item">
+                            <span th:each="item:${tag.tagList}"
+                                  th:text="${item.name}"
+                                  th:id="${item.id}">
+                            </span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">复选框</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="like[write]" title="写作">
+                <input type="checkbox" name="like[read]" title="阅读" checked>
+                <input type="checkbox" name="like[dai]" title="发呆">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">公开</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="switch" lay-skin="switch">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">发布形式</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sex" value="private" title="公开">
+                <input type="radio" name="sex" value="私密" title="私密">
+                <input type="radio" name="sex" value="粉丝可见" title="粉丝可见">
+                <input type="radio" name="sex" value="VIP可见" title="VIP可见" checked>
+            </div>
+        </div>
+        <div id="test1"></div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
 </body>
 </html>
