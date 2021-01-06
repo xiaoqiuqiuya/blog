@@ -1,14 +1,18 @@
 package com.nice.demo;
 
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+
+import java.util.ArrayList;
 
 /**
  * @author: nice
@@ -52,11 +56,14 @@ public class CodeProduction {
 
 //        策略配置
         StrategyConfig strategyConfig = new StrategyConfig();
-        strategyConfig.setInclude("tag_sort");
+        strategyConfig.setInclude("tab_article");
         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
         strategyConfig.setEntityLombokModel(true);
 
 //        自动填充策略
+
+        strategyConfig.setLogicDeleteFieldName("deleted");
+        strategyConfig.setVersionFieldName("version");
 
 
         mpg.setStrategy(strategyConfig);

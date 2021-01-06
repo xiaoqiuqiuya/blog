@@ -32,7 +32,7 @@
         <div class="publish-top">
             <i class="layui-icon">&#xe609;</i>
             <h1>请输入文章标题</h1>
-            <input placeholder="请输入标题" autocomplete="off" class="layui-input">
+            <input id="article-title" placeholder="请输入标题" autocomplete="off" class="layui-input">
             <button type="button" class="layui-btn layui-btn-warm">
                 <i class="layui-icon" style="font-size: 20px;">&#xe681;</i>
                 保存为草稿
@@ -44,7 +44,7 @@
         <div class="publish-center">
             <span>文章详情</span>
             <div id="test-editor">
-                <textarea style="display: none"></textarea>
+                <textarea id="article-content" style="display: none"></textarea>
             </div>
         </div>
     </div>
@@ -71,7 +71,7 @@
 </script>
 <!--发布提交信息表单-->
 <div style="display: none" id="publish-temp">
-    <form class="layui-form">
+    <form class="layui-form" lay-filter="publish-form">
         <div class="publish-warm">
             <span><i class="layui-icon">&#xe702;</i>请勿发布涉及政治、广告、营销、违反国家法律法规等内容</span>
         </div>
@@ -116,7 +116,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">文章类型</label>
             <div class="layui-input-inline">
-                <select name="article-type"  id="article-type" lay-filter="article-type">
+                <select name="articleType" id="articleType" lay-filter="article-type">
                     <option value=""></option>
                     <option value="original">原创</option>
                     <option value="repost">转载</option>
@@ -128,14 +128,16 @@
         <div class="publish-article-tips">
             <label class="layui-form-label">原文地址</label>
             <div class="layui-input-block">
-                <input type="text" name="originalLink" required lay-verify="required" placeholder="请输入原文链接"
+                <input type="text" name="originalLink" id="originalLink" placeholder="请输入原文链接"
                        autocomplete="off" class="layui-input">
 
                 <!--转载显示-->
                 <div class="publish-article-tips-repost">
-                    <input type="checkbox" name="permission" title="原文允许转载或者本次转载已经获得原文作者授权" lay-skin="primary"
+                    <input type="checkbox" name="permission" id="permission" title="原文允许转载或者本次转载已经获得原文作者授权" lay-skin="primary"
                            lay-verify="require">
-                    <div class="layui-form-mid layui-word-aux" style="color: #ca0c16 !important;">注意：转载请确认原文允许转载，或者您已经获得原文作者授权。转载文章不能设置为VIP可见。</div>
+                    <div class="layui-form-mid layui-word-aux" style="color: #ca0c16 !important;">
+                        注意：转载请确认原文允许转载，或者您已经获得原文作者授权。转载文章不能设置为VIP可见。
+                    </div>
                 </div>
                 <!--翻译显示-->
                 <div class="publish-article-tips-translated">
@@ -145,8 +147,6 @@
                         注意：翻译请确认原文允许翻译，或者您已经获得原文作者授权翻译。翻译文章请尽量填写原文链接。
                     </div>
                 </div>
-
-
             </div>
 
 
@@ -155,17 +155,10 @@
         <div class="layui-form-item">
             <label class="layui-form-label">发布形式</label>
             <div class="layui-input-block">
-                <input type="radio" name="sex" value="private" title="公开">
-                <input type="radio" name="sex" value="私密" title="私密">
-                <input type="radio" name="sex" value="粉丝可见" title="粉丝可见">
-                <input type="radio" name="sex" value="VIP可见" title="VIP可见" checked>
-            </div>
-        </div>
-        <div id="test1"></div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                <input type="radio" name="exposeFor" value="public" title="公开">
+                <input type="radio" name="exposeFor" value="private" title="私密">
+                <input type="radio" name="exposeFor" value="fans" title="粉丝可见">
+                <input type="radio" name="exposeFor" value="VIP" title="VIP可见" checked>
             </div>
         </div>
     </form>

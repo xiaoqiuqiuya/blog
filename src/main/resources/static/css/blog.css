@@ -693,11 +693,12 @@
 }
 
 /*文章标签*/
-.publish-articleTag{
+.publish-articleTag {
     width: 79%;
     float: right;
     display: inline-block
 }
+
 .publish-article-tag {
     background: rgb(244, 248, 252);
     border: 1px solid #cce0f3;
@@ -707,10 +708,12 @@
     margin-right: 3px;
     display: inline-block;
 }
-.publish-article-tag i{
+
+.publish-article-tag i {
     margin-left: 2px;
 }
-.publish-article-tag i:hover{
+
+.publish-article-tag i:hover {
     color: #ffffff;
     background: #267dcc;
     border-radius: 9px;
@@ -725,44 +728,49 @@
     padding: 2px;
     margin: 4px;
 }
-.publish-article-addTagBtn i{
+
+.publish-article-addTagBtn i {
     margin-left: 2px;
 }
-.publish-article-TagBox{
+
+.publish-article-TagBox {
     display: none;
     float: right;
     background: #ffffff;
-    border: 1px solid #e3e3e3 ;
+    border: 1px solid #e3e3e3;
     border-radius: 4px;
     padding: 10px 15px;
     width: 70%;
     height: 60%;
     margin-right: 3%;
 }
-.tabBox{
+
+.tabBox {
     padding: 1%;
 }
-.tabBox-list{
+
+.tabBox-list {
     display: inline-block;
     padding: 0 5px;
     cursor: pointer;
 }
 
-.tabBox-list-isActive{
+.tabBox-list-isActive {
     border-radius: 2px;
     background: #fcecea;
     color: #e33e33;
 }
 
-.tabBox-listBox{
-/*padding-top:6px ;*/
+.tabBox-listBox {
+    /*padding-top:6px ;*/
 }
 
-.tabBox-list-item{
+.tabBox-list-item {
     display: none;
     word-break: break-all;
 }
-.tabBox-list-item span{
+
+.tabBox-list-item span {
     padding: 1px 4px;
     height: 24px;
     /*正常色*/
@@ -779,21 +787,41 @@
     margin-top: 5px;
     display: inline-block;
 }
-.publish-article-tips{
+
+.publish-article-tips {
     display: none;
     width: 100%;
 }
-.publish-article-tips-repost{
+
+.publish-article-tips-repost {
     margin: 9px 0;
     display: none;
 }
-.publish-article-tips-translated{
+
+.publish-article-tips-translated {
     margin: 9px 0;
     display: none;
 }
 
+body .my-open-skin .layui-layer-btn {
+}
 
+body .my-open-skin .layui-layer-btn a {
+    color: #333;
+    border: 0px;
+    background-color: transparent;
+}
 
+body .my-open-skin .layui-layer-btn .layui-layer-btn1 {
+    color: #3399ea;
+}
+
+body .my-open-skin .layui-layer-btn .layui-layer-btn2 {
+    background: #fcecea;
+    border-radius: 4px;
+    color: #e33e33;
+    transition: all .3s ease-in-out;
+}
 @-webkit-keyframes bounceInDown {
     0%, 60%, 75%, 90%, to {
         transition-timing-function: cubic-bezier(.215, .61, .355, 1)
