@@ -32,7 +32,8 @@
         <div class="publish-top">
             <i class="layui-icon">&#xe609;</i>
             <h1>请输入文章标题</h1>
-            <input id="article-title" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            <input id="article-title" placeholder="请输入标题" autocomplete="off"
+                   class="layui-input">
             <button type="button" class="layui-btn layui-btn-warm">
                 <i class="layui-icon" style="font-size: 20px;">&#xe681;</i>
                 保存为草稿
@@ -73,41 +74,42 @@
 <div style="display: none" id="publish-temp">
     <form class="layui-form" lay-filter="publish-form">
         <div class="publish-warm">
-            <span><i class="layui-icon">&#xe702;</i>请勿发布涉及政治、广告、营销、违反国家法律法规等内容</span>
+            <span><i
+                    class="layui-icon">&#xe702;</i>请勿发布涉及政治、广告、营销、违反国家法律法规等内容</span>
         </div>
 
-        <div class="layui-form-item ">
+        <div class="layui-form-item">
             <label class="layui-form-label">文章标签</label>
-            <div class="publish-articleTag">
-                <!--已选标签-->
-                <span class="publish-article-tag-list">
-                </span>
-                <button type="button" class="publish-article-addTagBtn" onclick="showTags()">
-                    <i class="layui-icon layui-icon-add-1"></i>
-                    添加文章标签
-                </button>
-            </div>
-            <div class="publish-article-TagBox" id="TagBox">
-                <div>
-                    <span>还可以添加<span id="tag-num">5</span>个标签</span>
+            <div class="layui-input-block">
+                <div class="publish-articleTag layui-input-inline">
+                    <!--已选标签-->
+                    <span class="publish-article-tag-list"></span>
+                    <button type="button" class="publish-article-addTagBtn" onclick="showTags()">
+                        <i class="layui-icon layui-icon-add-1"></i>添加文章标签
+                    </button>
                 </div>
-                <div>
-                    <!--标签分类-->
-                    <div id="tabBox-list" class="tabBox">
-                        <div th:each="tag:${tag}"
-                             th:id="'tag-'+${tag.id}"
-                             th:class="tabBox-list"
-                             th:text="${tag.name}"
-                        ></div>
+                <div class="publish-article-TagBox layui-input-inline" id="TagBox">
+                    <div>
+                        <span>还可以添加<span id="tag-num">5</span>个标签</span>
                     </div>
-                    <!--标签列表-->
-                    <div class="tabBox-listBox">
-                        <div th:each="tag:${tag}"
-                             th:id="${tag.id-1}" class="tabBox-list-item">
+                    <div>
+                        <!--标签分类-->
+                        <div id="tabBox-list" class="tabBox">
+                            <div th:each="tag:${tag}"
+                                 th:id="'tag-'+${tag.id}"
+                                 th:class="tabBox-list"
+                                 th:text="${tag.name}"
+                            ></div>
+                        </div>
+                        <!--标签列表-->
+                        <div class="tabBox-listBox">
+                            <div th:each="tag:${tag}"
+                                 th:id="${tag.id-1}" class="tabBox-list-item">
                             <span th:each="item:${tag.tagList}"
                                   th:text="${item.name}"
                                   th:id="${item.id}">
                             </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -116,7 +118,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">文章类型</label>
             <div class="layui-input-inline">
-                <select name="articleType" id="articleType" lay-filter="article-type">
+                <select name="articleType" id="articleType"
+                        lay-filter="article-type">
                     <option value=""></option>
                     <option value="original">原创</option>
                     <option value="repost">转载</option>
@@ -128,22 +131,27 @@
         <div class="publish-article-tips">
             <label class="layui-form-label">原文地址</label>
             <div class="layui-input-block">
-                <input type="text" name="originalLink" id="originalLink" placeholder="请输入原文链接"
+                <input type="text" name="originalLink" id="originalLink"
+                       placeholder="请输入原文链接"
                        autocomplete="off" class="layui-input">
 
                 <!--转载显示-->
                 <div class="publish-article-tips-repost">
-                    <input type="checkbox" name="permission" id="permission" title="原文允许转载或者本次转载已经获得原文作者授权" lay-skin="primary"
+                    <input type="checkbox" name="permission" id="permission"
+                           title="原文允许转载或者本次转载已经获得原文作者授权" lay-skin="primary"
                            lay-verify="require">
-                    <div class="layui-form-mid layui-word-aux" style="color: #ca0c16 !important;">
+                    <div class="layui-form-mid layui-word-aux"
+                         style="color: #ca0c16 !important;">
                         注意：转载请确认原文允许转载，或者您已经获得原文作者授权。转载文章不能设置为VIP可见。
                     </div>
                 </div>
                 <!--翻译显示-->
                 <div class="publish-article-tips-translated">
-                    <input type="checkbox" name="permission" title="原文允许翻译或者本次翻译已经获得原文作者授权" lay-skin="primary"
+                    <input type="checkbox" name="permission"
+                           title="原文允许翻译或者本次翻译已经获得原文作者授权" lay-skin="primary"
                            lay-verify="require">
-                    <div class="layui-form-mid layui-word-aux" style="color: #ca0c16 !important;">
+                    <div class="layui-form-mid layui-word-aux"
+                         style="color: #ca0c16 !important;">
                         注意：翻译请确认原文允许翻译，或者您已经获得原文作者授权翻译。翻译文章请尽量填写原文链接。
                     </div>
                 </div>
@@ -158,7 +166,8 @@
                 <input type="radio" name="exposeFor" value="public" title="公开">
                 <input type="radio" name="exposeFor" value="private" title="私密">
                 <input type="radio" name="exposeFor" value="fans" title="粉丝可见">
-                <input type="radio" name="exposeFor" value="VIP" title="VIP可见" checked>
+                <input type="radio" name="exposeFor" value="VIP" title="VIP可见"
+                       checked>
             </div>
         </div>
     </form>

@@ -1,6 +1,7 @@
 package com.nice.demo.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.nice.demo.dao.TagDao;
 import com.nice.demo.mapper.TabArticleMapper;
 import com.nice.demo.mapper.TagSortMapper;
@@ -14,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.jws.WebParam;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,21 +33,41 @@ import java.util.Map;
 @RestController
 
 public class TabArticleController {
-
     @Autowired
     TagSortMapper tagSortMapper;
-
     @Autowired
     TabArticleMapper tabArticleMapper;
-
     @Autowired
     TabArticleService tabArticleService;
 
+    // 进入博客首页
+    @GetMapping("/article")
+    public ModelAndView articleList(
+            @RequestParam(required = true, defaultValue = "1")
+                    int current,
+            @RequestParam(required = true, defaultValue = "5")
+                    int size,
+            Model model) {
+        //视图跳转
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("article");
+        // 获取文章
+        List<TabArticle> articleList = new ArrayList();
+        articleList = tabArticleService.getArticles(current, size);
+        model.addAttribute("articleList", articleList);
+        return modelAndView;
+    }
 
-    @PostMapping("/article")
-    public String publishArticle() {
-        System.out.println();
-        return null;
+    // 文章详情
+    @GetMapping("/article/{id}")
+    public ModelAndView articleDetail(@PathVariable("id") Integer id, Model model) {
+        ModelAndView modelAndView = new ModelAndView();
+        QueryWrapper<TabArticle> wrapper = new QueryWrapper<>();
+        wrapper.eq("article_id", id);
+        TabArticle tabArticle = tabArticleService.getOne(wrapper);
+        model.addAttribute("article", tabArticle);
+        modelAndView.setViewName("details");
+        return modelAndView;
     }
 
     //    进入发布文章
@@ -52,7 +75,6 @@ public class TabArticleController {
     public ModelAndView getPublish(Model model) {
         List<TagDao> tagList = tagSortMapper.getTagList();
         model.addAttribute("tag", tagList);
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("publish");
         return modelAndView;

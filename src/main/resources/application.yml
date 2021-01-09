@@ -1,5 +1,5 @@
 server:
-#  端口
+  #  端口
   port: 8886
 
 #  spring配置
@@ -7,14 +7,24 @@ spring:
   # 数据库配置
   datasource:
     username: root
-    password: 123
-    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    password: 123456
+    url: jdbc:mysql://8.129.115.88:3306/blog?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
-# 静态资源路径
+    hikari:
+      connection-timeout: 60000 #默认30s，超过这个时间没有可用连接，会抛出SQLException（可接受的最低250ms）
+      validation-timeout: 3000 #控制测试连接的最长时间，必须小于connection-timeout（最低250ms，默认：5000ms）
+      idle-timeout: 60000 #连接在池中保持空闲状态的最长时间，最小允许10秒，默认10分钟
+      login-timeout: 5
+      max-lifetime: 60000 #连接的最大生命周期，最小为30秒，默认30分钟，当值为0时，表示无限寿命
+      maximum-pool-size: 10 #连接池的大小，视环境而定
+      minimum-idle: 10 #最小空闲连接数（建议不设置）
+      read-only: false #控制从池中取得的连接是否处于只读模式
+  # 静态资源路径
   mvc:
     static-path-pattern: /static/**
   resources:
     static-locations: classpath:/static/
+
 mybatis-plus:
   mapper-locations: classpath:com/nice/demo/mapper/xml/*.xml
   type-aliases-package: com.nice.demo.pojo

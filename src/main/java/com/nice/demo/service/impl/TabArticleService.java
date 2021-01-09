@@ -1,5 +1,7 @@
 package com.nice.demo.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nice.demo.pojo.TabArticle;
 import com.nice.demo.mapper.TabArticleMapper;
 import com.nice.demo.service.ITabArticleService;
@@ -7,6 +9,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.nice.demo.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -98,8 +103,8 @@ public class TabArticleService extends ServiceImpl<TabArticleMapper, TabArticle>
         if (tabArticle.getArticleStatus().equals("post")) {
             // 发布文章
             int insert = tabArticleMapper.insert(tabArticle);
-            if (insert !=1) {
-               // 插入失败。
+            if (insert != 1) {
+                // 插入失败。
                 return 0;
             }
             // 插入成功，返回插入的id
@@ -108,5 +113,14 @@ public class TabArticleService extends ServiceImpl<TabArticleMapper, TabArticle>
         return result;
     }
 
+    // 获取文章
+    @Override
+    public List<TabArticle> getArticles(int current, int size) {
+        List<TabArticle> tabArticleList = new ArrayList<>();
+        IPage<TabArticle> page = new Page<>(current, size);
+        page = tabArticleMapper.selectPage(page, null);
+        tabArticleList = page.getRecords();
+        return tabArticleList;
+    }
 
 }

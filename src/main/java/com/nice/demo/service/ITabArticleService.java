@@ -4,6 +4,8 @@ import com.nice.demo.pojo.TabArticle;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.nice.demo.utils.Result;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -17,4 +19,6 @@ public interface ITabArticleService extends IService<TabArticle> {
     Result ifNull(TabArticle tabArticle);
 
     int postOption(TabArticle tabArticle);
+
+    List<TabArticle> getArticles(int current, int size);
 }

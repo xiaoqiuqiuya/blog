@@ -1,0 +1,59 @@
+.myContainer{
+    margin-top: 80px;
+}
+.container-left{
+    background: #ffffff;
+    border-radius: .25rem;
+}
+
+.container-right{
+    background: #ffffff;
+    border-radius: .25rem;
+}
+
+.container-user-information span{
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0.5em;
+}
+.container-title{
+    font-weight: bold;
+    color: #212529;
+    margin: 0.5em 0px;
+    text-align: center;
+}
+a{
+    color: #00965e;
+    cursor: pointer;
+}
+a:hover{
+    color: #00965e;
+}
+.user-image{
+    width: 32px;
+    height: 32px;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 3px #bf7158, 0 8px 16px 0 rgba(0,0,0,.15);
+    border-radius: 50px;
+}
+
+.container-article-information{
+
+}
+.container-article-information a{
+    background: #e5f4ef;
+    display: inline-block;
+    font-size: .875rem;
+    padding: 0 .375rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    border-radius: .1875rem;
+}
+.container-article-information a:hover{
+    color: #004a2e;
+    background: #cceadf;
+}
+#article-preview{
+    height: 100px;
+    background: red;
+    color: black;
+}

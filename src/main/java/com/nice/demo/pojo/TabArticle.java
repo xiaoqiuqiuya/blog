@@ -36,11 +36,11 @@ public class TabArticle implements Serializable {
 
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
-    private Date gmtCreate;
+    private String gmtCreate;
 
     @ApiModelProperty(value = "修改时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date gmtModified;
+    private String gmtModified;
 
     @ApiModelProperty(value = "逻辑删除")
     @TableLogic

@@ -33,21 +33,18 @@
 
 .article-item {
     padding: 5px;
-    border-bottom: 2px solid #FF5722;
-    background-color: #fff
+    border-bottom: 2px solid #f0f2f5;
+    background-color: #ffffff
 }
 
 .article-item .head {
     width: 100%;
     padding: 5px;
-    color: #fc5531;
+    /*color: #fc5531;*/
 }
 
 .article-item .h4 {
     display: inline-block;
-}
-
-.article-item .body {
 }
 
 .article-item .body p {
@@ -61,6 +58,13 @@
 
 .article-item .foot {
     color: #5f6471;
+}
+
+.article-item:hover{
+    background: #f9fafc;
+}
+.article-item:hover a{
+    color: #fc5531;
 }
 
 .col-other {
@@ -694,7 +698,7 @@
 
 /*文章标签*/
 .publish-articleTag {
-    width: 79%;
+    width: 79% !important;
     float: right;
     display: inline-block
 }
@@ -735,14 +739,13 @@
 
 .publish-article-TagBox {
     display: none;
-    float: right;
+    float: left;
     background: #ffffff;
     border: 1px solid #e3e3e3;
     border-radius: 4px;
     padding: 10px 15px;
-    width: 70%;
+    width: 70% !important;
     height: 60%;
-    margin-right: 3%;
 }
 
 .tabBox {

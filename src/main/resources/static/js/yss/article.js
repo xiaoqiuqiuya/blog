@@ -68,4 +68,3 @@ article.Init = function ($) {
         });
     };
 };
-

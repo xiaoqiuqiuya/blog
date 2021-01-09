@@ -31,8 +31,7 @@ public class CodeProduction {
         gc.setAuthor("nice");
         gc.setOpen(false);
         gc.setFileOverride(false);
-        gc.setServiceImplName("%"+"Service");
-        gc.setIdType(IdType.ID_WORKER);
+        gc.setServiceImplName("%" + "Service");
         gc.setDateType(DateType.ONLY_DATE);
         gc.setSwagger2(true);
         mpg.setGlobalConfig(gc);
@@ -69,12 +68,6 @@ public class CodeProduction {
         mpg.setStrategy(strategyConfig);
 
         mpg.execute();
-
-
-
-
-
-
 
 
     }
