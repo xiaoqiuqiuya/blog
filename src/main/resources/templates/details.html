@@ -16,21 +16,16 @@
     <link rel="stylesheet" href="../static/css/nprogress.css"/>
     <link rel="stylesheet" href="../static/css/blog.css"/>
     <link rel="stylesheet" href="../static/css/details.css">
-
-
-
-
 </head>
 <body>
 <div class="header">
 </div>
 <!--头部引用-->
 <div th:insert="~{ bar/top :: nav}"></div>
-
 <div class="layui-container myContainer">
     <div class="layui-row layui-col-space20">
         <!--左边-->
-        <div class="layui-col-xs12 layui-col-md8 container-left">
+            <div class="layui-col-xs12 layui-col-md8 container-left">
             <!--头-->
             <div>
                 <div class="container-user-information">
@@ -45,32 +40,89 @@
                 </h2>
 
                 <div class="container-article-information">
-                    <a href="" th:text="${article.articleTags}"></a>
-                    <a href="" th:text="${article.articleTags}"></a>
-                    <a href="" th:text="${article.articleTags}"></a>
-                    发布于:
-                    <span th:text="${article.gmtCreate}"></span>
-                </div>
-                <hr>
+                    <a href="" th:each="tag:${tags}"
+                       th:text="${tag.name}"></a>
 
+                    发布于:
+                    <span th:text="${article.gmtCreate.toLocaleString()}"></span>
+                </div>
+            </div>
+            <hr>
+            <!--内容-->
+            <div class="article-preview-container">
                 <div id="article-preview">
                     <textarea style="display: none"
                               th:text="${article.articleContent}"></textarea>
                 </div>
-
+                <div>
+                    阅读量：
+                    <span th:text="${article.viewNum}"></span>
+                    ·
+                    更新于：
+                    <span th:text="${article.gmtModified.toLocaleString().substring(0,10)}"></span>
+                </div>
+                <!--点赞-->
+                <div class="article-option">
+                    <div class="article-option-price">
+                        <button class="article-price-btn">
+                            <i class="layui-icon layui-icon-praise"
+                               style="font-size: 2rem"></i>
+                            <span th:text="${article.likeNum}"></span>
+                        </button>
+                    </div>
+                </div>
             </div>
+            <hr>
 
+            <div class="article-bottom">
+                <div class="article-bottom-img">
+                    <a href="">
+                        <img class="user-image2"
+                             src="https://i.loli.net/2020/05/23/4KJHILTXhRBtfSx.png"
+                             alt="">
+                    </a>
+                </div>
+                <div class="article-bottom-user">
+                    <h5><a href="">排球超nice</a></h5>
+                    <span>超级无敌宇宙第一无人能挡秒天秒地秒空气大排球</span>
+                </div>
+            </div>
         </div>
         <!--右边-->
-        <div class="layui-col-xs12 layui-col-md4 container-right"
-             style="background-color: green;height: 500px">
-            <div class="grid-demo grid-demo-bg1">移动：12/12、桌面：8/12</div>
+        <div class="layui-col-xs12 layui-col-md4 container-right">
+            <!--热门文章-->
+            <div class="layui-col-xs11 layui-col-md10 about-hot container-right-item">
+                <fieldset class="layui-elem-field">
+                    <legend>热门文章</legend>
+                    <div class="layui-field-box">
+                        <a th:href="@{'/article/'+${item.articleId}}" th:each="item:${hot}">
+                            <p>
+                                <span th:class="'list-index index-of-list'+${itemStat.index+1}" th:text="${itemStat.index+1}"></span>
+                                <span class="about-hot-title"  th:text="${item.articleTitle}"></span>
+                            </p>
+
+                        </a>
+                    </div>
+                </fieldset>
+            </div>
+            <!--相关推荐-->
+            <div class="layui-col-xs11 layui-col-md10 about-tags container-right-item">
+                <fieldset class="layui-elem-field">
+                    <legend>延申阅读</legend>
+                    <div class="layui-field-box">
+                        <a th:href="@{'/article/'+${item.articleId}}" th:each="item:${related}">
+                            <p>
+                                <span class="about-hot-title" th:text="${item.articleTitle}"></span>
+                            </p>
+                        </a>
+                    </div>
+                </fieldset>
+
+            </div>
         </div>
 
     </div>
 </div>
-<!--	底部引用-->
-<div th:insert="~{ bar/bottom ::nav }"></div>
 
 <script src="../static/layui/layui.js"></script>
 <script src="../static/js/yss/gloable.js"></script>

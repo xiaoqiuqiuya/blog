@@ -21,4 +21,8 @@ public interface ITabArticleService extends IService<TabArticle> {
     int postOption(TabArticle tabArticle);
 
     List<TabArticle> getArticles(int current, int size);
+
+    List<TabArticle> getHotArticle(int current, int size);
+
+    List<TabArticle> getRelatedArticle(String[] tags,Integer currentId);
 }

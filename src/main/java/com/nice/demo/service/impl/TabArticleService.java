@@ -1,5 +1,6 @@
 package com.nice.demo.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.nice.demo.pojo.TabArticle;
@@ -67,7 +68,7 @@ public class TabArticleService extends ServiceImpl<TabArticleMapper, TabArticle>
         if (tabArticle.getArticleType() == null || "".equals(tabArticle.getArticleType())) {
             result.setSuccess(false);
             result.setCode(303);
-            result.setMessage("请选择文章来源");
+            result.setMessage("请选择文章类型");
             return result;
         } else {
             //判断文章是否授权了
@@ -94,6 +95,10 @@ public class TabArticleService extends ServiceImpl<TabArticleMapper, TabArticle>
     // 保存或者发布文章
     @Override
     public int postOption(TabArticle tabArticle) {
+        // 处理tags,
+        String tags = tabArticle.getArticleTags();
+        tags = ","+tags+",";
+        tabArticle.setArticleTags(tags);
         int result = 0;
         if (tabArticle.getArticleStatus().equals("save")) {
             // 保存文章
@@ -121,6 +126,52 @@ public class TabArticleService extends ServiceImpl<TabArticleMapper, TabArticle>
         page = tabArticleMapper.selectPage(page, null);
         tabArticleList = page.getRecords();
         return tabArticleList;
+    }
+
+    //获取热门文章
+    @Override
+    public List<TabArticle> getHotArticle(int current, int size) {
+        QueryWrapper<TabArticle> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("view_num");
+        IPage<TabArticle> page = new Page<>(current, size);
+        page =  tabArticleMapper.selectPage(page,wrapper);
+        List<TabArticle> tabArticleList = page.getRecords();
+        return tabArticleList;
+    }
+
+    // 根据标签获取相关推荐
+    @Override
+    public List<TabArticle> getRelatedArticle(String[] tags,Integer currentId) {
+        List<TabArticle> list = new ArrayList<>();
+        for (int i = 1; i < tags.length; i++) {
+            QueryWrapper<TabArticle> wrapper = new QueryWrapper<>();
+            wrapper.like("article_tags", "," + tags[i] + ",");
+            //去除当前的文章
+            wrapper.notIn("article_id", currentId);
+            //根据浏览次数排序
+            wrapper.orderByDesc("view_num");
+            //只获取10条
+            IPage<TabArticle> page = new Page<>(0,10);
+            page = tabArticleMapper.selectPage(page,wrapper);
+            List<TabArticle> articleList = page.getRecords();
+            if (i != 1) {
+                // 去除重复的文章
+                for (TabArticle article : articleList) {
+                    if (!list.contains(article)) {
+                        list.add(article);
+                    }
+                }
+            } else {
+                list.addAll(articleList);
+            }
+        }
+        // 如果标签太少，就获取热门的文章
+        if (list.size()<10){
+            List<TabArticle> hotArticle = getHotArticle(10, 10 - list.size());
+            list.addAll(hotArticle);
+        }
+        list.size();
+        return list;
     }
 
 }

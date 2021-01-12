@@ -4,8 +4,10 @@ package com.nice.demo.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.nice.demo.dao.TagDao;
 import com.nice.demo.mapper.TabArticleMapper;
+import com.nice.demo.mapper.TagMapper;
 import com.nice.demo.mapper.TagSortMapper;
 import com.nice.demo.pojo.TabArticle;
+import com.nice.demo.pojo.Tag;
 import com.nice.demo.service.impl.TabArticleService;
 import com.nice.demo.utils.Result;
 import com.nice.demo.utils.ResultEnum;
@@ -35,6 +37,10 @@ import java.util.Map;
 public class TabArticleController {
     @Autowired
     TagSortMapper tagSortMapper;
+
+    @Autowired
+    TagMapper tagMapper;
+
     @Autowired
     TabArticleMapper tabArticleMapper;
     @Autowired
@@ -64,8 +70,24 @@ public class TabArticleController {
         ModelAndView modelAndView = new ModelAndView();
         QueryWrapper<TabArticle> wrapper = new QueryWrapper<>();
         wrapper.eq("article_id", id);
+        //文章
         TabArticle tabArticle = tabArticleService.getOne(wrapper);
+        //tag
+        QueryWrapper<Tag> tqw = new QueryWrapper<>();
+        tqw.in("id", tabArticle.getArticleTags().split(","));
+        List<Tag> tags = tagMapper.selectList(tqw);
+
+        String[] tt = tabArticle.getArticleTags().toString().split(",");
+
+        //热门文章
+        List<TabArticle> hotArticle = tabArticleService.getHotArticle(0,10);
+        //相关推荐
+        List<TabArticle> relatedArticle = tabArticleService.getRelatedArticle(tt,tabArticle.getArticleId());
+
         model.addAttribute("article", tabArticle);
+        model.addAttribute("tags", tags);
+        model.addAttribute("hot",hotArticle);
+        model.addAttribute("related",relatedArticle);
         modelAndView.setViewName("details");
         return modelAndView;
     }

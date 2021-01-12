@@ -19,6 +19,5 @@ import java.util.List;
 
 public interface TagSortMapper extends BaseMapper<TagSort> {
 
-    TagSort getDemo();
     List<TagDao> getTagList();
 }

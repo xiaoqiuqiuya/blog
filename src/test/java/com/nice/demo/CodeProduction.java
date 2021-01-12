@@ -31,17 +31,17 @@ public class CodeProduction {
         gc.setAuthor("nice");
         gc.setOpen(false);
         gc.setFileOverride(false);
-        gc.setServiceImplName("%" + "Service");
+        gc.setServiceImplName("%service");
         gc.setDateType(DateType.ONLY_DATE);
         gc.setSwagger2(true);
         mpg.setGlobalConfig(gc);
 
 //        设置数据源
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC");
+        dsc.setUrl("jdbc:mysql://8.129.115.88:3306/blog?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("123");
+        dsc.setPassword("123456");
         dsc.setDbType(DbType.MYSQL);
         mpg.setDataSource(dsc);
 
@@ -55,16 +55,13 @@ public class CodeProduction {
 
 //        策略配置
         StrategyConfig strategyConfig = new StrategyConfig();
-        strategyConfig.setInclude("tab_article");
+        strategyConfig.setInclude("tag"); //需要映射的表
         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
         strategyConfig.setEntityLombokModel(true);
 
 //        自动填充策略
-
-        strategyConfig.setLogicDeleteFieldName("deleted");
-        strategyConfig.setVersionFieldName("version");
-
-
+//        strategyConfig.setLogicDeleteFieldName("deleted");
+//        strategyConfig.setVersionFieldName("version");
         mpg.setStrategy(strategyConfig);
 
         mpg.execute();
