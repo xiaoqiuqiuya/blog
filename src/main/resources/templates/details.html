@@ -30,9 +30,8 @@
             <div>
                 <div class="container-user-information">
                     <a href="">
-                        <img src="https://i.loli.net/2020/05/23/4KJHILTXhRBtfSx.png"
-                             class="user-image" alt="">
-                        <span>排球超nice</span>
+                        <img th:src="${author.avatarUrl}" class="user-image" alt=""/>
+                        <span th:text="${author.getFullName()}"></span>
                     </a>
                 </div>
                 <h2 class="container-title">
@@ -78,13 +77,13 @@
                 <div class="article-bottom-img">
                     <a href="">
                         <img class="user-image2"
-                             src="https://i.loli.net/2020/05/23/4KJHILTXhRBtfSx.png"
+                             th:src="${author.avatarUrl}"
                              alt="">
                     </a>
                 </div>
                 <div class="article-bottom-user">
-                    <h5><a href="">排球超nice</a></h5>
-                    <span>超级无敌宇宙第一无人能挡秒天秒地秒空气大排球</span>
+                    <h5><a href="" th:text="${author.fullName}"></a></h5>
+                    <span th:text="${author.description}"></span>
                 </div>
             </div>
         </div>

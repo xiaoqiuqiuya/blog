@@ -1,14 +1,21 @@
 package com.nice.demo.controller;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.nice.demo.dao.TagDao;
 import com.nice.demo.mapper.TabArticleMapper;
 import com.nice.demo.mapper.TagMapper;
 import com.nice.demo.mapper.TagSortMapper;
 import com.nice.demo.pojo.TabArticle;
+import com.nice.demo.pojo.TabUser;
 import com.nice.demo.pojo.Tag;
+import com.nice.demo.service.ITabUserService;
 import com.nice.demo.service.impl.TabArticleService;
+import com.nice.demo.service.impl.TabUserService;
+import com.nice.demo.service.impl.ViewHistoryService;
+import com.nice.demo.utils.GetIpAddr;
 import com.nice.demo.utils.Result;
 import com.nice.demo.utils.ResultEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.jws.WebParam;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,23 +45,20 @@ import java.util.Map;
 public class TabArticleController {
     @Autowired
     TagSortMapper tagSortMapper;
-
     @Autowired
     TagMapper tagMapper;
-
     @Autowired
     TabArticleMapper tabArticleMapper;
     @Autowired
     TabArticleService tabArticleService;
+    @Autowired
+    TabUserService tabUserService;
+    @Autowired
+    ViewHistoryService historyService;
 
     // 进入博客首页
     @GetMapping("/article")
-    public ModelAndView articleList(
-            @RequestParam(required = true, defaultValue = "1")
-                    int current,
-            @RequestParam(required = true, defaultValue = "5")
-                    int size,
-            Model model) {
+    public ModelAndView articleList(@RequestParam(required = true, defaultValue = "1") int current, @RequestParam(required = true, defaultValue = "5") int size, Model model) {
         //视图跳转
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("article");
@@ -66,33 +71,37 @@ public class TabArticleController {
 
     // 文章详情
     @GetMapping("/article/{id}")
-    public ModelAndView articleDetail(@PathVariable("id") Integer id, Model model) {
+    public ModelAndView articleDetail(@PathVariable("id") Integer id, Model model, HttpServletRequest request) {
+        String ip = GetIpAddr.getIpAddr(request);
+        //增加阅读量
+        historyService.increaseView(String.valueOf(id), ip);
         ModelAndView modelAndView = new ModelAndView();
         QueryWrapper<TabArticle> wrapper = new QueryWrapper<>();
         wrapper.eq("article_id", id);
-        //文章
+        //获取文章内容
         TabArticle tabArticle = tabArticleService.getOne(wrapper);
-        //tag
+        //获取tag列表
         QueryWrapper<Tag> tqw = new QueryWrapper<>();
         tqw.in("id", tabArticle.getArticleTags().split(","));
         List<Tag> tags = tagMapper.selectList(tqw);
-
+        //获取作者信息
+        TabUser author = tabUserService.getById(tabArticle.getAuthorId());
+        //获取热门文章
+        List<TabArticle> hotArticle = tabArticleService.getHotArticle(0, 10);
+        //获取相关推荐
         String[] tt = tabArticle.getArticleTags().toString().split(",");
-
-        //热门文章
-        List<TabArticle> hotArticle = tabArticleService.getHotArticle(0,10);
-        //相关推荐
-        List<TabArticle> relatedArticle = tabArticleService.getRelatedArticle(tt,tabArticle.getArticleId());
+        List<TabArticle> relatedArticle = tabArticleService.getRelatedArticle(tt, tabArticle.getArticleId());
 
         model.addAttribute("article", tabArticle);
         model.addAttribute("tags", tags);
-        model.addAttribute("hot",hotArticle);
-        model.addAttribute("related",relatedArticle);
+        model.addAttribute("hot", hotArticle);
+        model.addAttribute("related", relatedArticle);
+        model.addAttribute("author", author);
         modelAndView.setViewName("details");
         return modelAndView;
     }
 
-    //    进入发布文章
+    // 进入发布文章页
     @GetMapping("/publish")
     public ModelAndView getPublish(Model model) {
         List<TagDao> tagList = tagSortMapper.getTagList();
@@ -102,6 +111,7 @@ public class TabArticleController {
         return modelAndView;
     }
 
+    // 发布文章
     @PostMapping("/publish")
     public Result publish_Article(@RequestBody(required = true) TabArticle tabArticle, Model model) {
         Result result = tabArticleService.ifNull(tabArticle);
@@ -125,5 +135,15 @@ public class TabArticleController {
         result.setData(map);
         return result;
     }
+
+    // 点赞
+    @GetMapping("/like/{id}")
+    @ResponseBody
+    public JSON like(@RequestParam("id")Integer articleId){
+        JSONObject obj = new JSONObject();
+        tabArticleService.giveTheThumbsUp(articleId);
+        return obj;
+    }
+
 }
 

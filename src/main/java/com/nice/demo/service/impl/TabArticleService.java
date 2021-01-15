@@ -174,4 +174,17 @@ public class TabArticleService extends ServiceImpl<TabArticleMapper, TabArticle>
         return list;
     }
 
+    //点赞
+    @Override
+    public void giveTheThumbsUp(Integer articleId) {
+        //获取当前登录的用户
+        //获取当前用户是否点赞
+        //如果已经点过了，再点就是取消赞
+
+        //创建数据库表储存点赞的数据
+        // userid、articleId、gmt_create、deleted
+        // 用户id   文章id     点赞时间     逻辑删除（取消赞、有效赞）
+
+    }
+
 }

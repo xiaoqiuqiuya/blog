@@ -7,8 +7,8 @@ spring:
   # 数据库配置
   datasource:
     username: root
-    password: 123456
-    url: jdbc:mysql://8.129.115.88:3306/blog?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    password: 123
+    url: jdbc:mysql://localhost/blog?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       connection-timeout: 60000 #默认30s，超过这个时间没有可用连接，会抛出SQLException（可接受的最低250ms）
@@ -23,7 +23,7 @@ spring:
   mvc:
     static-path-pattern: /static/**
   resources:
-    static-locations: classpath:/static/
+    static-locations: classpath:/static/,classpath:/static/image/
 
 mybatis-plus:
   mapper-locations: classpath:com/nice/demo/mapper/xml/*.xml

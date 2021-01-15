@@ -25,4 +25,6 @@ public interface ITabArticleService extends IService<TabArticle> {
     List<TabArticle> getHotArticle(int current, int size);
 
     List<TabArticle> getRelatedArticle(String[] tags,Integer currentId);
+
+    void giveTheThumbsUp(Integer articleId);
 }

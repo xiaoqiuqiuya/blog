@@ -43,7 +43,4 @@ public class IndexController {
         System.out.println(ip);
         return ip;
     }
-
-
-
 }

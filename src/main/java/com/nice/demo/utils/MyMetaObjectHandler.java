@@ -19,6 +19,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         System.out.println(new Date());
         this.setFieldValByName("gmtCreate", new Date(), metaObject);
         this.setFieldValByName("gmtModified", new Date(), metaObject);
+        this.setFieldValByName("gmtView", new Date(), metaObject);
 
     }
 
@@ -26,5 +27,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void updateFill(MetaObject metaObject) {
         this.setFieldValByName("gmt_modified", new Date(), metaObject);
+        this.setFieldValByName("gmtView", new Date(), metaObject);
+
     }
 }
