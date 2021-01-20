@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="foot">
-                            <span th:text="${article.gmtCreate}"></span>
+                            <span th:text="${article.gmtCreate.toLocaleString()}"></span>
                             <div class="f-fr">
                                 <i class="layui-icon layui-icon-fire"></i>
                                 <span th:text="${article.viewNum}"></span>
@@ -60,32 +60,7 @@
         <!--			右边-->
         <div class="col-other">
             <div class="inner">
-                <div class="other-item" id="categoryandsearch">
-                    <div class="search">
-                        <label class="search-wrap">
-                            <input type="text" id="searchtxt"
-                                   placeholder="输入关键字搜索"/>
-                            <span class="search-icon">
-					                <i class="fa fa-search"></i>
-					            </span>
-                        </label>
-                        <ul class="search-result"></ul>
-                    </div>
-                    <ul class="category mt20" id="category">
-                        <li data-index="0" class="slider"></li>
-                        <li data-index="1"><a href="/Blog/Article">全部文章</a></li>
-                        <li data-index="2"><a href="/Blog/Article/1/">Java</a>
-                        </li>
-                        <li data-index="3"><a href="/Blog/Article/2/">前端</a>
-                        </li>
-                        <li data-index="4"><a href="/Blog/Article/3/">Python</a>
-                        </li>
-                        <li data-index="5"><a href="/Blog/Article/4/">PHP</a>
-                        </li>
-                        <li data-index="6"><a href="/Blog/Article/5/">其它</a>
-                        </li>
-                    </ul>
-                </div>
+
                 <!--右边悬浮 平板或手机设备显示-->
                 <div class="category-toggle"><i class="layui-icon">&#xe603;</i>
                 </div>
@@ -130,6 +105,11 @@
                             </li>
                             <li><a href="/Blog/Read/9">小白轻松入门Redis</a></li>
                         </ul>
+                    </div>
+                </div>
+                <div class="other-item">
+                    <div class="site-demo-laydate">
+                        <div class="layui-inline" id="test-n1"></div>
                     </div>
                 </div>
                 <!--					最近访客-->

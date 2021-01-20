@@ -15,5 +15,5 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface IViewHistoryService extends IService<ViewHistory> {
 
-    void increaseView(String articleId,String ip);
+    void increaseView(HttpServletRequest request,String articleId,String ip);
 }

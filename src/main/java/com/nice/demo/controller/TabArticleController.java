@@ -1,7 +1,6 @@
 package com.nice.demo.controller;
 
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.nice.demo.dao.TagDao;
@@ -11,20 +10,18 @@ import com.nice.demo.mapper.TagSortMapper;
 import com.nice.demo.pojo.TabArticle;
 import com.nice.demo.pojo.TabUser;
 import com.nice.demo.pojo.Tag;
-import com.nice.demo.service.ITabUserService;
 import com.nice.demo.service.impl.TabArticleService;
+import com.nice.demo.service.impl.TabArticleThumbsServiceImpl;
 import com.nice.demo.service.impl.TabUserService;
 import com.nice.demo.service.impl.ViewHistoryService;
 import com.nice.demo.utils.GetIpAddr;
 import com.nice.demo.utils.Result;
-import com.nice.demo.utils.ResultEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +52,8 @@ public class TabArticleController {
     TabUserService tabUserService;
     @Autowired
     ViewHistoryService historyService;
+    @Autowired
+    TabArticleThumbsServiceImpl tabArticleThumbsService;
 
     // 进入博客首页
     @GetMapping("/article")
@@ -74,7 +73,7 @@ public class TabArticleController {
     public ModelAndView articleDetail(@PathVariable("id") Integer id, Model model, HttpServletRequest request) {
         String ip = GetIpAddr.getIpAddr(request);
         //增加阅读量
-        historyService.increaseView(String.valueOf(id), ip);
+        historyService.increaseView(request, String.valueOf(id), ip);
         ModelAndView modelAndView = new ModelAndView();
         QueryWrapper<TabArticle> wrapper = new QueryWrapper<>();
         wrapper.eq("article_id", id);
@@ -91,12 +90,15 @@ public class TabArticleController {
         //获取相关推荐
         String[] tt = tabArticle.getArticleTags().toString().split(",");
         List<TabArticle> relatedArticle = tabArticleService.getRelatedArticle(tt, tabArticle.getArticleId());
+        //获取点赞状态
+        boolean status = tabArticleThumbsService.getStatus(request,id);
 
         model.addAttribute("article", tabArticle);
         model.addAttribute("tags", tags);
         model.addAttribute("hot", hotArticle);
         model.addAttribute("related", relatedArticle);
         model.addAttribute("author", author);
+        model.addAttribute("islike", status);
         modelAndView.setViewName("details");
         return modelAndView;
     }
@@ -139,10 +141,12 @@ public class TabArticleController {
     // 点赞
     @GetMapping("/like/{id}")
     @ResponseBody
-    public JSON like(@RequestParam("id")Integer articleId){
+    public String like(@PathVariable("id") Integer articleId,
+                       HttpServletRequest request) {
         JSONObject obj = new JSONObject();
-        tabArticleService.giveTheThumbsUp(articleId);
-        return obj;
+        Result result = tabArticleThumbsService.giveTheThumbsUp(request, articleId);
+        obj.put("result", result);
+        return obj.toString();
     }
 
 }

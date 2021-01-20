@@ -72,7 +72,7 @@ public class TabArticleService extends ServiceImpl<TabArticleMapper, TabArticle>
             return result;
         } else {
             //判断文章是否授权了
-            if (tabArticle.getArticleType() != "original") {
+            if (!tabArticle.getArticleType().equals("original")) {
                 if (tabArticle.getOriginalLink() == null || "".equals(tabArticle.getOriginalLink())) {
                     result.setSuccess(false);
                     result.setCode(304);
@@ -97,7 +97,7 @@ public class TabArticleService extends ServiceImpl<TabArticleMapper, TabArticle>
     public int postOption(TabArticle tabArticle) {
         // 处理tags,
         String tags = tabArticle.getArticleTags();
-        tags = ","+tags+",";
+        tags = "," + tags + ",";
         tabArticle.setArticleTags(tags);
         int result = 0;
         if (tabArticle.getArticleStatus().equals("save")) {
@@ -134,14 +134,14 @@ public class TabArticleService extends ServiceImpl<TabArticleMapper, TabArticle>
         QueryWrapper<TabArticle> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("view_num");
         IPage<TabArticle> page = new Page<>(current, size);
-        page =  tabArticleMapper.selectPage(page,wrapper);
+        page = tabArticleMapper.selectPage(page, wrapper);
         List<TabArticle> tabArticleList = page.getRecords();
         return tabArticleList;
     }
 
     // 根据标签获取相关推荐
     @Override
-    public List<TabArticle> getRelatedArticle(String[] tags,Integer currentId) {
+    public List<TabArticle> getRelatedArticle(String[] tags, Integer currentId) {
         List<TabArticle> list = new ArrayList<>();
         for (int i = 1; i < tags.length; i++) {
             QueryWrapper<TabArticle> wrapper = new QueryWrapper<>();
@@ -151,8 +151,8 @@ public class TabArticleService extends ServiceImpl<TabArticleMapper, TabArticle>
             //根据浏览次数排序
             wrapper.orderByDesc("view_num");
             //只获取10条
-            IPage<TabArticle> page = new Page<>(0,10);
-            page = tabArticleMapper.selectPage(page,wrapper);
+            IPage<TabArticle> page = new Page<>(0, 10);
+            page = tabArticleMapper.selectPage(page, wrapper);
             List<TabArticle> articleList = page.getRecords();
             if (i != 1) {
                 // 去除重复的文章
@@ -166,7 +166,7 @@ public class TabArticleService extends ServiceImpl<TabArticleMapper, TabArticle>
             }
         }
         // 如果标签太少，就获取热门的文章
-        if (list.size()<10){
+        if (list.size() < 10) {
             List<TabArticle> hotArticle = getHotArticle(10, 10 - list.size());
             list.addAll(hotArticle);
         }
@@ -174,17 +174,25 @@ public class TabArticleService extends ServiceImpl<TabArticleMapper, TabArticle>
         return list;
     }
 
-    //点赞
+    // 修改文章点赞数量
     @Override
-    public void giveTheThumbsUp(Integer articleId) {
-        //获取当前登录的用户
-        //获取当前用户是否点赞
-        //如果已经点过了，再点就是取消赞
-
-        //创建数据库表储存点赞的数据
-        // userid、articleId、gmt_create、deleted
-        // 用户id   文章id     点赞时间     逻辑删除（取消赞、有效赞）
-
+    public void updateLikeNum(Integer articleId, String option) {
+        // 获取文章对象
+        TabArticle tabArticle = tabArticleMapper.selectById(articleId);
+        // 获取当前点赞数
+        int like = tabArticle.getLikeNum();
+        if (option.equals("increase")) {
+            // 增加点赞数
+            like += 1;
+        } else if (option.equals("decrease")) {
+            // 减少点赞数
+            like -= 1;
+        }
+        // 重新构建文章对象
+        tabArticle.setLikeNum(like);
+        // 更新数据库
+        QueryWrapper<TabArticle> wrapper = new QueryWrapper<>();
+        wrapper.eq("article_id",tabArticle.getArticleId());
+        tabArticleMapper.update(tabArticle,wrapper);
     }
-
 }

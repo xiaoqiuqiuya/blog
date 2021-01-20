@@ -10,6 +10,7 @@ import com.nice.demo.service.IViewHistoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.text.View;
@@ -34,17 +35,18 @@ public class ViewHistoryService extends ServiceImpl<ViewHistoryMapper, ViewHisto
     TabArticleMapper articleMapper;
     //浏览次数
     @Override
-    public void increaseView(String articleId,String ip) {
+    public void increaseView(HttpServletRequest request,String articleId,String ip) {
         // 获取当前登录的用户
         // 主要是根据IP进行判断，如果登录了就记录用户的id，
         // 30分钟内只算一次
-        TabUser tabUser = null;
-        String userId = "";
-        if (tabUser != null) {
-            userId = String.valueOf(tabUser.getId());
-        } else {
+        Object user = request.getSession().getAttribute("user");
+        String userId ="";
+        if (!StringUtils.isEmpty(user)){
+            userId = user.toString();
+        }else {
             userId = ip;
         }
+
         //1.查询数据库看用户是否点击过这个文章，并获取时间
         QueryWrapper<ViewHistory> wrapper = new QueryWrapper<>();
         Map<String,String> map = new HashMap();

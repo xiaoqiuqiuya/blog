@@ -36,6 +36,9 @@ public class TabUser implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @ApiModelProperty(value = "用户自定义id")
+    private String userId;
+
     @ApiModelProperty(value = "账号")
     private String userName;
 
@@ -83,5 +86,7 @@ public class TabUser implements Serializable {
     @ApiModelProperty(value = "点赞数量")
     private Long likeNum;
 
+    @ApiModelProperty(value = "0正常用户，1临时用户")
+    private Integer status;
 
 }

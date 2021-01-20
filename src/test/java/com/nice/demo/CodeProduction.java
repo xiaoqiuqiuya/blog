@@ -31,7 +31,6 @@ public class CodeProduction {
         gc.setAuthor("nice");
         gc.setOpen(false);
         gc.setFileOverride(false);
-        gc.setServiceImplName("%service");
         gc.setDateType(DateType.ONLY_DATE);
         gc.setSwagger2(true);
         mpg.setGlobalConfig(gc);
@@ -55,7 +54,7 @@ public class CodeProduction {
 
 //        策略配置
         StrategyConfig strategyConfig = new StrategyConfig();
-        strategyConfig.setInclude("view_history"); //需要映射的表
+        strategyConfig.setInclude("tab_user"); //需要映射的表
         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
         strategyConfig.setEntityLombokModel(true);
 

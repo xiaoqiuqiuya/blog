@@ -12,6 +12,7 @@
 
 }
 
+
 .container-user-information span {
     font-size: 16px;
     font-weight: bold;
@@ -76,12 +77,23 @@
     background: #ffffff;
     padding: 2px 12px;
     font-size: 2rem;
+    display: none;
 }
 
 .article-price-btn:hover {
     background: #00965e;
     cursor: pointer;
     color: #ffffff;
+}
+
+.article-bottom-like{
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 2px 12px;
+    font-size: 2rem;
+    background: #FF5722;
+    color: #fff;
+    display: none;
 }
 
 .user-image2 {
@@ -111,6 +123,14 @@
     background: #fff;
     margin-bottom: 10px;
 }
+
+.container-comment{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: red;
+    border-radius: 5px;
+}
+
 
 .about-author {;
 }
@@ -152,4 +172,8 @@
 
 .index-of-list3 {
     background: #FAA90E
+}
+.btn_msg{
+    color: red;
+    display: none;
 }

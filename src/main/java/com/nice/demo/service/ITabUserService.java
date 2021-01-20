@@ -2,6 +2,9 @@ package com.nice.demo.service;
 
 import com.nice.demo.pojo.TabUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.nice.demo.utils.Result;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -13,4 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ITabUserService extends IService<TabUser> {
 
+    Result loginUser(TabUser user, HttpServletRequest request);
+
+    void tempLogin(HttpServletRequest request);
 }

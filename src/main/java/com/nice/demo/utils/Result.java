@@ -7,6 +7,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * code:
+ *  成功：200
+ *  错误：
+ *      401：账号密码为空
+ *      402：账号密码错误
+ *      403: 用户未登录
+ *      404：已经点赞过该文章
+ *
+ *
+ *
  * @author: nice
  * @date: 2021/1/1 16:40
  * @description:返回类型的封装

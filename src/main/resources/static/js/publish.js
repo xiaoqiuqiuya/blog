@@ -80,7 +80,6 @@ function saveOrPost(option,form) {
     for (let formDataKey in formData) {
         TabArticle[formDataKey] = formData[formDataKey]
     }
-    // console.log(article)
     console.log(JSON.stringify(TabArticle));
 
     // 发送ajax请求
@@ -92,16 +91,24 @@ function saveOrPost(option,form) {
             contentType:"application/json",
             method: "POST",
             success:function (data) {
-                resolve(data);
+                console.log(data.code);
+                if (Number(data.code)==200){
+                    resolve(data);
+                }else{
+                    reject(data);
+                }
             },
-            error:function (data) {
-                reject(data);
-            }
+
         })
     }).then((data) => {
-        console.log(data.data.id);
+        // 发送成功,跳转到文章详情页
+        var pathname = window.location.pathname;
+        var index = window.location.href.indexOf(pathname);
+        var path = window.location.href.substring(0, index)
+        window.location.replace(path + "/article/"+data.data.id);
     }).catch((data) => {
-        console.log(data.data.id);
+        // 发送失败
+        layer.msg(data.message);
     })
 }
 
@@ -116,7 +123,7 @@ function setArticleType(type, lastSelected) {
     }
     if (type.length > 0 && type != "original") {
         document.getElementsByClassName("publish-article-tips")[0].style.display = "block";
-        document.getElementsByClassName("publish-article-tips-" + type)[0].style.display = "block";
+        document.getElementsByClassName("publish-article-tips   -" + type)[0].style.display = "block";
         lastSelected = type;
     }
     return lastSelected;

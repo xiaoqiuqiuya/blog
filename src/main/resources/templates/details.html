@@ -25,12 +25,13 @@
 <div class="layui-container myContainer">
     <div class="layui-row layui-col-space20">
         <!--左边-->
-            <div class="layui-col-xs12 layui-col-md8 container-left">
+        <div class="layui-col-xs12 layui-col-md8 container-left">
             <!--头-->
             <div>
                 <div class="container-user-information">
                     <a href="">
-                        <img th:src="${author.avatarUrl}" class="user-image" alt=""/>
+                        <img th:src="${author.avatarUrl}" class="user-image"
+                             alt=""/>
                         <span th:text="${author.getFullName()}"></span>
                     </a>
                 </div>
@@ -63,16 +64,32 @@
                 <!--点赞-->
                 <div class="article-option">
                     <div class="article-option-price">
-                        <button class="article-price-btn">
+                        <!--已经点赞-->
+                        <button id="btn_like"
+                                th:style="${islike}?'display:inline-block'"
+                                th:data-id="${article.getArticleId()}"
+                                class="article-bottom-like">
+                            已赞
+                            <span th:text="${article.likeNum}"></span>
+                        </button>
+
+                        <!--未点赞-->
+                        <button id="btn_unlike"
+                                th:style="${!islike}?'display:inline-block'"
+                                th:data-id="${article.getArticleId()}"
+                                class="article-price-btn">
                             <i class="layui-icon layui-icon-praise"
                                style="font-size: 2rem"></i>
                             <span th:text="${article.likeNum}"></span>
                         </button>
+                        <p id="btn_msg" class="btn_msg"><a href="/login.html"
+                                                           style="color:red;">请登录后操作</a>
+                        </p>
                     </div>
                 </div>
             </div>
             <hr>
-
+            <!--底部显示作者的信息-->
             <div class="article-bottom">
                 <div class="article-bottom-img">
                     <a href="">
@@ -86,18 +103,25 @@
                     <span th:text="${author.description}"></span>
                 </div>
             </div>
+
+
         </div>
+
+
         <!--右边-->
         <div class="layui-col-xs12 layui-col-md4 container-right">
             <!--热门文章-->
-            <div class="layui-col-xs11 layui-col-md10 about-hot container-right-item">
+            <div class="layui-col-xs12 layui-col-md12 about-hot container-right-item">
                 <fieldset class="layui-elem-field">
                     <legend>热门文章</legend>
                     <div class="layui-field-box">
-                        <a th:href="@{'/article/'+${item.articleId}}" th:each="item:${hot}">
+                        <a th:href="@{'/article/'+${item.articleId}}"
+                           th:each="item:${hot}">
                             <p>
-                                <span th:class="'list-index index-of-list'+${itemStat.index+1}" th:text="${itemStat.index+1}"></span>
-                                <span class="about-hot-title"  th:text="${item.articleTitle}"></span>
+                                <span th:class="'list-index index-of-list'+${itemStat.index+1}"
+                                      th:text="${itemStat.index+1}"></span>
+                                <span class="about-hot-title"
+                                      th:text="${item.articleTitle}"></span>
                             </p>
 
                         </a>
@@ -105,13 +129,15 @@
                 </fieldset>
             </div>
             <!--相关推荐-->
-            <div class="layui-col-xs11 layui-col-md10 about-tags container-right-item">
+            <div class="layui-col-xs12 layui-col-md12 about-tags container-right-item">
                 <fieldset class="layui-elem-field">
                     <legend>延申阅读</legend>
                     <div class="layui-field-box">
-                        <a th:href="@{'/article/'+${item.articleId}}" th:each="item:${related}">
+                        <a th:href="@{'/article/'+${item.articleId}}"
+                           th:each="item:${related}">
                             <p>
-                                <span class="about-hot-title" th:text="${item.articleTitle}"></span>
+                                <span class="about-hot-title"
+                                      th:text="${item.articleTitle}"></span>
                             </p>
                         </a>
                     </div>
@@ -120,14 +146,25 @@
             </div>
         </div>
 
+        <div class="layui-row layui-col-space20">
+            <div class="layui-col-xs12 layui-col-md8 container-comment">
+                <!--发布评论-->
+                <div></div>
+                <!--评论展示-->
+
+            </div>
+        </div>
+
+
     </div>
+
 </div>
 
 <script src="../static/layui/layui.js"></script>
 <script src="../static/js/yss/gloable.js"></script>
 <script src="../static/js/plugins/nprogress.js"></script>
 
-<!--<script src="../static/js/details.js"></script>-->
+<script src="../static/js/details.js"></script>
 
 <!--md预览-->
 <script src="../static/js/plugins/jquery.min.js"></script>
@@ -135,6 +172,7 @@
 <link href="../static/js/plugins/css/editormd.preview.min.css" rel="stylesheet">
 <script src="../static/js/plugins/lib/prettify.min.js"></script>
 <script src="../static/js/plugins/editormd.min.js"/>
+
 <!--    -->
 <script>NProgress.start();</script>
 <script>
@@ -142,7 +180,7 @@
         NProgress.done();
         // 渲染markdown
         $(function () {
-            editormd.markdownToHTML("article-preview")
+            editormd.markdownToHTML("article-preview");
         })
     };
 </script>

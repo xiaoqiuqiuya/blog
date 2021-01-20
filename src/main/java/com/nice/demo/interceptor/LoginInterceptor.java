@@ -14,9 +14,8 @@ public class LoginInterceptor implements HandlerInterceptor {
          * 用户进入发布页面进行拦截
          * 若没有登录则跳回到登录页面
          */
-
         System.out.println("正在进行拦截发布文章请求");
-        Object loginUser = request.getSession().getAttribute("loginUser");
+        Object loginUser = request.getSession().getAttribute("user");
         if (!StringUtils.isEmpty(loginUser)) {
             return true;
         } else {

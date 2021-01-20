@@ -1,7 +1,21 @@
-﻿layui.use(['jquery'], function () {
+﻿layui.use(['jquery','laydate'], function () {
     var $ = layui.jquery;
+    var laydate = layui.laydate;
+
+   var ins1 = laydate.render({
+        elem: '#test-n1'
+        ,position: 'static'
+        ,showBottom:false
+        ,mark:{
+            '0-0-2':'this day'
+        }
+        ,done: function(value, date){
+        if(date.date === 2){ //点击2017年8月15日，弹出提示语
+            ins1.hint('是谁把你带到我身旁');
+        }
+    }
+    });
     article.Init($);//初始化共用js
-   
 });
 var article = {};
 article.Init = function ($) {
