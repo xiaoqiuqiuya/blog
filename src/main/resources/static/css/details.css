@@ -5,13 +5,12 @@
 .container-left {
     background: #ffffff;
     border-radius: .25rem;
+    margin-bottom: 10px;
 }
 
 .container-right {
     padding-top: 0px;
-
 }
-
 
 .container-user-information span {
     font-size: 16px;
@@ -86,7 +85,7 @@
     color: #ffffff;
 }
 
-.article-bottom-like{
+.article-bottom-like {
     cursor: pointer;
     border-radius: 5px;
     padding: 2px 12px;
@@ -124,13 +123,36 @@
     margin-bottom: 10px;
 }
 
-.container-comment{
+.container-comment {
     margin-top: 20px;
     margin-bottom: 20px;
-    background: red;
-    border-radius: 5px;
 }
 
+.comment_input {
+}
+
+.comment_input_item {
+    border: 1px solid #e6e6e6;
+    min-height: 36px;
+    width: 80%;
+    margin-left: 5%;
+    margin-top: 5px;
+    border-radius: 3px;
+
+}
+
+.comment_input_item:focus {
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6)
+}
+
+.comment_publish {
+    min-height: 36px;
+    width: 10%;
+    margin-left: 0px;
+    margin-top: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+}
 
 .about-author {;
 }
@@ -173,7 +195,168 @@
 .index-of-list3 {
     background: #FAA90E
 }
-.btn_msg{
+
+.btn_msg {
     color: red;
     display: none;
+}
+
+.comment-list {
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.comment-list-item {
+
+}
+
+.user-face {
+    width: 15%;
+    padding-top: 5px;
+    text-align: center;
+    float: left;
+    clear: both;
+}
+
+.user-face-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50px;
+}
+
+.comment-content {
+    border-bottom: 1px #dddddd solid;
+    width: 85%;
+    float: right;
+    padding: 5px 0 14px 0;
+}
+
+.comment-content-username {
+    font-weight: bold;
+}
+
+.comment-text {
+    font-size: 14px;
+}
+
+.comment-info {
+    font-size: 12px;
+}
+
+/*未点赞*/
+.comment-info-like {
+    margin: 0px 10px;
+}
+
+.comment-info-like:hover {
+    cursor: pointer;
+    color: #01AAED;
+}
+
+/*已经点赞*/
+.comment-info-like1 {
+    color: #01AAED;
+    margin: 0px 10px;
+}
+
+.comment-info-like1:hover {
+    cursor: pointer;
+}
+
+/*评论的回复按钮*/
+.comment-info-reply-btn {
+    cursor: pointer;
+    padding: 5px 5px;
+    border-radius: 3px;
+}
+
+.comment-info-reply-btn:hover {
+    color: #01AAED;
+    background: #dddddd;
+}
+
+.comment-reply-item {
+    padding: 10px;
+}
+
+.user-face-reply-icon {
+    height: 24px;
+    width: 24px;
+    margin-right: 10px;
+    border-radius: 50px;
+}
+
+.reply-content {
+    width: 95%;
+    float: right;
+}
+
+.reply-item-left {
+    width: 5%;
+    float: left;
+}
+
+.view-more {
+    width: 100%;
+    float: right;
+}
+
+.comment-send {
+    display: none;
+}
+
+.reply-textarea {
+    width: 80%;
+    float: left;
+    height: 65px;
+    padding: 6px 10px;
+    resize: none;
+    border: 1px solid #e5e9ef;
+    border-radius: 5px;
+    background: #f4f5f7;
+}
+
+.reply-textarea:focus {
+    border: 1px solid #00a1d6;
+    background: #ffffff;
+}
+
+.reply-send {
+    float: right;
+    cursor: pointer;
+    text-align: center;
+    background: #00a1d6;
+    color: #ffffff;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    padding: 11px;
+    min-width: 38px;
+    min-height: 54px;
+    margin-right: 5%;
+    width: 38px;
+    height: 54px;
+}
+
+
+/*回复的点赞*/
+.reply-info-like {
+    margin: 0px 10px;
+}
+
+.reply-info-like:hover {
+    color: #01AAED;
+    cursor: pointer;
+    margin: 0px 10px;
+}
+
+.reply-info-like1 {
+    color: #01AAED;
+    margin: 0px 10px;
+}
+
+.reply-info-like1:hover {
+    color: #01AAED;
+    cursor: pointer;
+    margin: 0px 10px;
 }

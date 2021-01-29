@@ -195,4 +195,12 @@ public class TabArticleService extends ServiceImpl<TabArticleMapper, TabArticle>
         wrapper.eq("article_id",tabArticle.getArticleId());
         tabArticleMapper.update(tabArticle,wrapper);
     }
+
+    //获取文章总数
+    @Override
+    public Integer getTotal() {
+        QueryWrapper<TabArticle> wrapper = new QueryWrapper<>();
+        wrapper.eq("deleted",0);
+        return tabArticleMapper.selectCount(wrapper);
+    }
 }

@@ -3,6 +3,7 @@ package com.nice.demo.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.nice.demo.dao.TabCommentDao;
 import com.nice.demo.dao.TagDao;
 import com.nice.demo.mapper.TabArticleMapper;
 import com.nice.demo.mapper.TagMapper;
@@ -10,10 +11,7 @@ import com.nice.demo.mapper.TagSortMapper;
 import com.nice.demo.pojo.TabArticle;
 import com.nice.demo.pojo.TabUser;
 import com.nice.demo.pojo.Tag;
-import com.nice.demo.service.impl.TabArticleService;
-import com.nice.demo.service.impl.TabArticleThumbsServiceImpl;
-import com.nice.demo.service.impl.TabUserService;
-import com.nice.demo.service.impl.ViewHistoryService;
+import com.nice.demo.service.impl.*;
 import com.nice.demo.utils.GetIpAddr;
 import com.nice.demo.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +52,8 @@ public class TabArticleController {
     ViewHistoryService historyService;
     @Autowired
     TabArticleThumbsServiceImpl tabArticleThumbsService;
+    @Autowired
+    TabCommentServiceImpl commentService;
 
     // 进入博客首页
     @GetMapping("/article")
@@ -62,11 +62,21 @@ public class TabArticleController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("article");
         // 获取文章
-        List<TabArticle> articleList = new ArrayList();
-        articleList = tabArticleService.getArticles(current, size);
+        List<TabArticle> articleList = tabArticleService.getArticles(current, size);
+        //获取热门文章
+        List<TabArticle> hotArticle = tabArticleService.getHotArticle(0, 10);
         model.addAttribute("articleList", articleList);
+        model.addAttribute("hot", hotArticle);
         return modelAndView;
     }
+
+    //获取文章总数
+    @GetMapping("/totalArticle")
+    @ResponseBody
+    public Integer getTotalArticle(){
+        return tabArticleService.getTotal();
+    }
+
 
     // 文章详情
     @GetMapping("/article/{id}")
@@ -91,14 +101,17 @@ public class TabArticleController {
         String[] tt = tabArticle.getArticleTags().toString().split(",");
         List<TabArticle> relatedArticle = tabArticleService.getRelatedArticle(tt, tabArticle.getArticleId());
         //获取点赞状态
-        boolean status = tabArticleThumbsService.getStatus(request,id);
-
+        boolean status = tabArticleThumbsService.getStatus(request, id);
+        //获取评论
+//        List<TabComment> comments = commentService.getComments(id);
+        List<TabCommentDao> comments = commentService.finComments(id, request);
         model.addAttribute("article", tabArticle);
         model.addAttribute("tags", tags);
         model.addAttribute("hot", hotArticle);
         model.addAttribute("related", relatedArticle);
         model.addAttribute("author", author);
         model.addAttribute("islike", status);
+        model.addAttribute("comments", comments);
         modelAndView.setViewName("details");
         return modelAndView;
     }

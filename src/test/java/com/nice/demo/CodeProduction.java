@@ -54,7 +54,7 @@ public class CodeProduction {
 
 //        策略配置
         StrategyConfig strategyConfig = new StrategyConfig();
-        strategyConfig.setInclude("tab_user"); //需要映射的表
+        strategyConfig.setInclude("tab_comment_thumbs"); //需要映射的表
         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
         strategyConfig.setEntityLombokModel(true);
 

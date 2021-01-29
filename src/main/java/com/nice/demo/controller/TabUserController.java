@@ -32,6 +32,7 @@ import java.util.Map;
 public class TabUserController {
     @Autowired
     TabUserService tabUserService;
+
     // 通过账号密码进行登录
     @PostMapping("login")
     @ResponseBody
@@ -53,17 +54,22 @@ public class TabUserController {
         obj.put("result", result);
         return obj.toString();
     }
+
     // 临时登录
     @GetMapping("login")
-    public String login(HttpServletRequest request){
+    public String login(HttpServletRequest request) {
         tabUserService.tempLogin(request);
         // 持久化登录
         request.getSession().setAttribute("user", GetIpAddr.getIpAddr(request));
         return "redirect:/article";
     }
 
-
-
-
+    //退出登录
+    @GetMapping("out")
+    public String outOfLogin(HttpServletRequest request) {
+        request.getSession().removeAttribute("user");
+        System.out.println("user:" + request.getSession().getAttribute("user"));
+        return "redirect:/";
+    }
 }
 
